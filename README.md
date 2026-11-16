@@ -34,6 +34,8 @@
 
 ### 本地编译
 
+#### Linux / macOS 用户（Makefile）
+
 推荐直接使用附带的 `Makefile`：
 
 ```bash
@@ -62,6 +64,17 @@ xelatex slide.tex
 xelatex slide.tex
 ```
 
+#### Windows 用户（Compile.bat）
+
+对于 Windows 用户，我们也提供了批处理编译脚本 `Compile.bat`。可以直接双击运行编译，也可以在命令提示符窗口（cmd / PowerShell）中使用：
+
+```cmd
+.\Compile.bat slide          # 默认编译生成 slide.pdf 并清理中间辅助文件
+.\Compile.bat clean          # 删除编译所产生的中间文件
+.\Compile.bat cleanall       # 删除 slide.pdf 和所有中间文件
+.\Compile.bat help           # 查看帮助说明
+```
+
 ### Overleaf 使用
 
 1. 将本项目所有文件打包为 ZIP 并上传至 Overleaf；
@@ -73,7 +86,8 @@ xelatex slide.tex
 ```text
 SWUFE_Beamer_Theme/
 ├── README.md        # 本说明文档
-├── Makefile         # 编译与管理脚本
+├── Makefile         # Linux / macOS 编译与管理脚本
+├── Compile.bat      # Windows 批处理编译脚本
 ├── slide.tex        # 幻灯片主文档（示例与内容编写）
 ├── slide.pdf        # 编译生成的示例 PDF
 ├── SWUFE.sty        # 西财主题宏包（西财蓝配色、页眉、页脚及样式定义）
