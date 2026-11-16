@@ -24,6 +24,10 @@
 \usepackage{latexsym,xcolor,multicol,booktabs,calligra}
 \usepackage{amssymb,amsfonts,amsmath,amsthm,mathrsfs,mathptmx} %数学常用宏包
 \usepackage{graphicx,pstricks,listings,stackengine}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric}
 \usefonttheme[onlymath]{serif} %使用衬线字体展示公式，更加美观
 
 \renewcommand{\today}{\number\year 年\number\month 月\number\day 日}
@@ -130,18 +134,85 @@
 \end{frame}
 
 \section{优势}
-\subsection{A. }
-\begin{frame}
+\subsection{TikZ 矢量绘图}
+\begin{frame}{TikZ 绘图示例：研究工作流程}
+    \begin{center}
+    \begin{tikzpicture}[
+        node distance=1.2cm and 1.5cm,
+        box/.style={rectangle, rounded corners=3pt, minimum width=2.2cm, minimum height=0.8cm, text centered, draw=swufe, fill=swufe!10, font=\footnotesize\bfseries},
+        accent/.style={rectangle, rounded corners=3pt, minimum width=2.2cm, minimum height=0.8cm, text centered, draw=swufe!80!black, fill=swufe, text=white, font=\footnotesize\bfseries},
+        arrow/.style={-{Stealth[length=2.5mm]}, thick, color=swufe}
+    ]
+        % Nodes
+        \node[box] (data) {数据采集与清洗};
+        \node[box, right=of data] (feature) {特征工程构建};
+        \node[accent, right=of feature] (model) {模型训练与优化};
+        \node[box, below=1.0cm of feature] (eval) {性能评估与回测};
+        \node[box, below=1.0cm of data] (decision) {策略输出与报告};
+
+        % Arrows
+        \draw[arrow] (data) -- (feature);
+        \draw[arrow] (feature) -- (model);
+        \draw[arrow] (model) |- (eval);
+        \draw[arrow] (eval) -- (decision);
+        \draw[arrow, dashed] (eval) -- node[left, font=\tiny] {反馈调优} (feature);
+    \end{tikzpicture}
+    \end{center}
+    \vspace{0.3em}
     \begin{itemize}
-        \item 有一些 \LaTeX{} 自带的
-        \item \texttt{有一些Tsinghua的}
-        \item 本模板来源自 \newline \url{https://www.latexstudio.net/archives/4051.html}
-        \item 但是最初的 \href{http://far.tooold.cn/post/latex/beamertsinghua}{\color{purple}{link}} \cite{origin}已经失效了
-        \item 这是我在16-17年做的一些ppt：\href{https://github.com/Trinkle23897/oi_slides}{\color{purple}{戳我}}
+        \item \LaTeX{} 原生矢量绘图，支持高精度缩放与样式自定义
+        \item 适用于绘制模型架构、算法步骤与实证研究工作流程
     \end{itemize}
 \end{frame}
 
-\subsection{B. }
+\subsection{PGFPlots 数据图}
+\begin{frame}{PGFPlots 绘图示例：函数与数据可视化}
+    \begin{columns}
+        \begin{column}{0.62\textwidth}
+            \begin{center}
+            \begin{tikzpicture}
+            \begin{axis}[
+                width=6.8cm,
+                height=4.8cm,
+                grid=both,
+                grid style={line width=.1pt, draw=gray!25},
+                major grid style={line width=.2pt, draw=gray!40},
+                xlabel={$x$},
+                ylabel={$f(x)$},
+                xlabel style={font=\footnotesize},
+                ylabel style={font=\footnotesize},
+                tick label style={font=\scriptsize},
+                legend style={at={(0.96,0.94)}, anchor=north east, font=\scriptsize},
+                domain=-3:3,
+                samples=100,
+                axis lines=left,
+                enlargelimits=true
+            ]
+                % Shaded area
+                \addplot[fill=swufe!20, draw=none, domain=-1:1] {1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+
+                % Standard Normal Distribution
+                \addplot[thick, color=swufe, smooth] {1/sqrt(2*pi)*exp(-x^2/2)};
+                \addlegendentry{$\mathcal{N}(0, 1)$}
+
+                % Variance 2
+                \addplot[thick, color=orange!90!black, dashed, smooth] {1/sqrt(2*pi*2)*exp(-x^2/(2*2))};
+                \addlegendentry{$\mathcal{N}(0, 2)$}
+            \end{axis}
+            \end{tikzpicture}
+            \end{center}
+        \end{column}
+        \begin{column}{0.38\textwidth}
+            \begin{itemize}
+                \item \textbf{高质量矢量渲染}：直接在幻灯片中绘制函数曲线与统计分布
+                \item \textbf{格式风格统一}：坐标轴标签、字体字号与主题高度协调
+                \item 支持导入 \texttt{.csv} 数据集绘制折线图、散点图与柱状图
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\subsection{图片插入}
 \begin{frame}{插入图片}
     \begin{figure}
         \centering
@@ -152,21 +223,7 @@
 \end{frame}
 
 \section{原因}
-
-\subsection{A. }
-
-\begin{frame}{这一份主题与原始的THU Beamer Theme区别在于}
-    \begin{itemize}
-        \item 顶栏的小点变成一行而不是多行
-        \item 中文采用楷书
-        \item 剩下我改了啥我也忘了……我16年魔改的，都四年过去了（x
-        \item 更多该模板的功能可以参考 \url{https://www.latexstudio.net/archives/4051.html}
-        \item 下面列举出了一些Beamer的用法，部分节选自 \url{https://tuna.moe/event/2018/latex/}
-    \end{itemize}
-\end{frame}
-
-
-\subsection{C. }
+\subsection{排版举例}
 \begin{frame}{排版举例}
     \begin{exampleblock}{无编号公式} % 加 * 
         \begin{equation*}
@@ -404,6 +461,7 @@ $V = \frac{4}{3}\pi r^3$
 
 \section{参考文献}
 \begin{frame}[allowframebreaks]
+    \nocite{*}
     \bibliography{ref}
     \bibliographystyle{alpha}
     % 如果参考文献太多的话，可以像下面这样调整字体：
