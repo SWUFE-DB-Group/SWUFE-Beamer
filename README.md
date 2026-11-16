@@ -2,6 +2,8 @@
 
 本项目适用于西南财经大学学术报告、论文开题与答辩、课堂展示等场景的 LaTeX Beamer 幻灯片制作。
 
+- **GitHub 仓库**：[SWUFE-DB-Group/SWUFE-Beamer](https://github.com/SWUFE-DB-Group/SWUFE-Beamer)
+
 ## 来源与致谢
 
 本项目来自 [Overleaf SWUFE Beamer Theme 模板](https://www.overleaf.com/latex/templates/swufe-beamer-theme/hysqbvdbpnsm)（作者 Lei Chao），并做了简单修改。
